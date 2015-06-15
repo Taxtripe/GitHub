@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Script Tutorials" />
+    <title>Stylish responsive footer | Script Tutorials</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- css font and stylesheet -->
+    <link href="css/weather.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.countdown.js"></script>
+    
+    <script type="text/javascript">
+      $(function() {
+        var endDate = "11 20, 2015 23:59:59";
+
+        $('.countdown.simple').countdown({ date: endDate });
+
+        $('.countdown.styled').countdown({
+          date: endDate,
+          render: function(data) {
+            $(this.el).html("<div>" + this.leadingZeros(data.days, 3) + " <span>days</span></div><div>" + this.leadingZeros(data.hours, 2) + " <span>hrs</span></div><div>" + this.leadingZeros(data.min, 2) + " <span>min</span></div><div>" + this.leadingZeros(data.sec, 2) + " <span>sec</span></div>");
+          }
+        });
+
+        $('.countdown.callback').countdown({
+          date: +(new Date) + 10000,
+          render: function(data) {
+            $(this.el).text(this.leadingZeros(data.sec, 2) + " sec");
+          },
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        }).on("click", function() {
+          $(this).removeClass('ended').data('countdown').update(+(new Date) + 10000).start();
+        });
+
+        // End time for diff purposes
+        var endTimeDiff = new Date().getTime() + 15000;
+        // This is server's time
+        var timeThere = new Date();
+        // This is client's time (delayed)
+        var timeHere = new Date(timeThere.getTime() - 5434);
+        // Get the difference between client time and server time
+        var diff_ms = timeHere.getTime() - timeThere.getTime();
+        // Get the rounded difference in seconds
+        var diff_s = diff_ms / 1000 | 0;
+        
+        var notice = [];
+        notice.push('Server time: ' + timeThere.toDateString() + ' ' + timeThere.toTimeString());
+        notice.push('Your time: ' + timeHere.toDateString() + ' ' + timeHere.toTimeString());
+        notice.push('Time difference: ' + diff_s + ' seconds (' + diff_ms + ' milliseconds to be precise). Your time is a bit behind.');
+        
+        $('.offset-notice').html(notice.join('<br />'));
+        
+        $('.offset-server .countdown').countdown({
+          date: endTimeDiff,
+          offset: diff_s * 1000,
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        });
+        
+        $('.offset-client .countdown').countdown({
+          date: endTimeDiff,
+          onEnd: function() {
+            $(this.el).addClass('ended');
+          }
+        });
+
+      });
+    </script>
+</head>
+<body>
+    <!-- Your custom main content is here -->
+
+    <footer>
+        <ul>
+            <li>
+                <section id="fridayDrinks">
+                <div class="border">               </div>
+                    <h2>Coming Soon!!</h2>
+
+                  <div class="countdown styled"></div>
+                    <p>We work hard throughout the week , And It will be Soon!!</p>
+
+            </section>
+            </li>
+            
+            <li>
+                <section id="scrobbles">
+                <div class="border">                </div>
+                <h2>Diary</h2>
+                <p class="number">129,484</p>
+                <p>
+                Travel Diary is Ready
+                <a title="Follow Us On Last.Fm" href="">Here</a>
+                . Check out our
+                <a title="Alt Design Studio" href="">Recommend</a>
+                page to see 
+                </p>
+
+            </section>
+            </li>
+            
+            <li>
+                <section id="weather2">
+                <div class="border">                </div>
+                <h2>Weather</h2>
+                <div id="weather">
+                        
+                    </div>
+                    <div class="button_wrap"><button id="geo" class="js-geolocation">Use Your Location</button></div>
+                <!--<p>
+                    It's "Mostly Cloudy" here in Derby, according to
+                    <a target="_blank" title="Yahoo! Weather" href="http://uk.weather.yahoo.com/england/derbyshire/derby-18114/">Yahoo! Weather</a>
+                .
+                </p>-->
+
+            </section>
+            </li>
+            <li>
+                <section id="Lol">
+            <div class="border">            </div>
+            <h2>Lol</h2>
+            <p class="number">Tax</p>
+            <p>is the current Lol champion for 2015.</p>
+                    <div class="border_last">            </div>
+            </section>
+                
+            </li>
+        </ul>
+
+        
+        <div class="bar">
+            <div class="bar-wrap">
+                <ul class="links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">License</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Advertise</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+
+                <div class="social">
+                    <a href="#" class="fb">
+                        <span data-icon="f" class="icon"></span>
+                        <span class="info">
+                            <span class="follow">Become a fan Facebook</span>
+                            <span class="num">9,999</span>
+                        </span>
+                    </a>
+
+                    <a href="#" class="tw">
+                        <span data-icon="T" class="icon"></span>
+                        <span class="info">
+                            <span class="follow">Follow us Twitter</span>
+                            <span class="num">9,999</span>
+                        </span>
+                    </a>
+
+                    <a href="#" class="rss">
+                        <span data-icon="R" class="icon"></span>
+                        <span class="info">
+                            <span class="follow">Subscribe RSS</span>
+                            <span class="num">9,999</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="clear"></div>
+                <div class="copyright">&copy;  2015 All Rights Reserved</div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/test.js"></script>
+    <script src="js/jquery.simpleWeather.js"></script>
+    
+
+</body>
+</html>
+
